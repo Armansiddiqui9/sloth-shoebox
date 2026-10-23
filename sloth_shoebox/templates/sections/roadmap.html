@@ -1,0 +1,21 @@
+<section class="block" id="roadmap">
+  <div class="wrap">
+    <div class="head">
+      <h2>Three phases, one honest promise per phase.</h2>
+      <p>The MVP is hackathon-scoped to prove the artifact-mining loop. Phase 2 adds the student stack. Phase 3 builds the moat: an offline PWA, LAN sync and community merchant packs.</p>
+    </div>
+    <div class="phases">
+      {% for phase, title, status, items in c.ROADMAP %}
+      <section>
+        <p class="phases__phase">{{ phase }} <span class="phases__status{% if status == 'In progress' %} is-live{% endif %}">{{ status }}</span></p>
+        <h3>{{ title }}</h3>
+        <ul>
+          {% for text, done in items %}
+          <li{% if done %} class="is-done"{% endif %}><span class="box" aria-hidden="true">{% if done %}<svg><use href="#m-yes"/></svg>{% endif %}</span>{{ text }}{% if done %}<span class="vh"> (done)</span>{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endfor %}
+    </div>
+  </div>
+</section>

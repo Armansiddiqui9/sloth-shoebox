@@ -1,0 +1,23 @@
+<section class="block" id="docs">
+  <div class="wrap">
+    <div class="head">
+      <h2>The full specification.</h2>
+      <p>What the Sloth Shoebox is, the problem it solves, the pipeline, the data model, the privacy contract, and how it compares with existing tools. {{ docs.sections }} sections.</p>
+    </div>
+    <div class="docs">
+      <details class="docs__toc-m">
+        <summary>Contents</summary>
+        <nav aria-label="Documentation contents">
+          {% for t in docs.toc if t.level == 2 %}<a href="#{{ t.id }}">{{ t.text }}</a>{% endfor %}
+        </nav>
+      </details>
+      <aside class="docs__toc" aria-label="Documentation contents">
+        <p>Contents</p>
+        <nav>
+          {% for t in docs.toc %}<a href="#{{ t.id }}" class="lv{{ t.level }}">{{ t.text }}</a>{% endfor %}
+        </nav>
+      </aside>
+      <article class="sheet prose">{{ docs.html | safe }}</article>
+    </div>
+  </div>
+</section>

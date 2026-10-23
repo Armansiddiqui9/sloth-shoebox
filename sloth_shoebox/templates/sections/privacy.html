@@ -1,0 +1,14 @@
+<section class="block block--ink" id="privacy">
+  <div class="wrap">
+    <div class="head">
+      <h2>The privacy argument is the architecture.</h2>
+      <p>This is not a marketing layer. The list below is the complete data-flow contract of the application, and every claim can be checked in the source.</p>
+    </div>
+    <dl class="contract">
+      {% for q, a in c.PRIVACY_CONTRACT %}
+      <div><dt>{{ q }}</dt><dd>{{ a }}</dd></div>
+      {% endfor %}
+    </dl>
+    <p class="guarantee">{{ c.PRIVACY_GUARANTEE }}</p>
+  </div>
+</section>

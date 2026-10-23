@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Sloth Shoebox: an expense ledger built from the payments you already saved</title>
+  <meta name="description" content="Local-first expense tracking from UPI screenshots, receipt photos and PDF bills. No cloud, no accounts, no subscriptions, no SMS permissions.">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="{{ url_for('static', path='mark.svg') }}" type="image/svg+xml">
+  <link rel="preload" href="{{ url_for('static', path='fonts/archivo-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ url_for('static', path='css/app.css') }}">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  {% include "sections/header.html" %}
+  <main id="main">
+    {% block main %}{% endblock %}
+  </main>
+  {% include "sections/footer.html" %}
+  {% block scripts %}{% endblock %}
+</body>
+</html>

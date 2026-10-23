@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+data/
+*.db
+*.db-wal
+*.db-shm
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+.DS_Store
+# Claude Code: share .claude/ with the team, keep personal overrides local
+.claude/settings.local.json
+CLAUDE.local.md

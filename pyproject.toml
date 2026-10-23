@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sloth-shoebox"
+dynamic = ["version", "dependencies"]
+description = "Local-first expense ledger built from UPI screenshots, receipt photos and PDF bills."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "httpx2"]
+
+[project.scripts]
+sloth-shoebox = "sloth_shoebox.__main__:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "sloth_shoebox.__version__" }
+dependencies = { file = ["requirements.txt"] }
+
+[tool.setuptools.packages.find]
+include = ["sloth_shoebox*"]
+
+[tool.setuptools.package-data]
+sloth_shoebox = ["templates/**/*.html", "static/**/*", "prompts/*.txt"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["data"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]  # the formatter owns line length; long copy strings are fine
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

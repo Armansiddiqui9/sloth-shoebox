@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block main %}
+  {% include "sections/hero.html" %}
+  {% include "sections/problem.html" %}
+  {% include "sections/pipeline.html" %}
+  {% include "sections/demo.html" %}
+  {% include "sections/privacy.html" %}
+  {% include "sections/compare.html" %}
+  {% include "sections/personas.html" %}
+  {% include "sections/roadmap.html" %}
+  {% include "sections/faq.html" %}
+  {% include "sections/docs.html" %}
+{% endblock %}
+{% block scripts %}
+  <script id="boot" type="application/json">{{ {"samples": samples, "categories": categories} | tojson }}</script>
+  <script type="module" src="{{ url_for('static', path='js/main.js') }}"></script>
+{% endblock %}

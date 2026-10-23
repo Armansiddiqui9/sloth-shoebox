@@ -1,0 +1,28 @@
+<section class="block" id="pipeline">
+  <div class="wrap">
+    <div class="head">
+      <h2>Five stages, one promise: nothing leaves your machine.</h2>
+      <p>Each stage has a single responsibility and an explicit failure path. The architecture is the privacy argument: there is no server in the parse path, by construction.</p>
+    </div>
+    <ol class="stages">
+      {% for name, body, failure in c.PIPELINE_STAGES %}
+      <li>
+        <span class="stages__n" aria-hidden="true">{{ loop.index }}</span>
+        <div><h3>{{ name }}</h3><p>{{ body }}</p></div>
+        <p class="stages__fail"><b>If it fails</b>{{ failure }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+    <h3 class="sub">What runs the parse step, by hardware</h3>
+    <div class="ladder">
+      {% for tier, model, target, note in c.DEGRADATION %}
+      <div class="ladder__step ladder__step--{{ loop.index }}">
+        <h4>{{ tier }}</h4>
+        <p class="ladder__model">{{ model }}</p>
+        <p class="ladder__target">{{ target }}</p>
+        <p>{{ note }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

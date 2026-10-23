@@ -1,0 +1,18 @@
+<section class="block" id="personas">
+  <div class="wrap">
+    <div class="head">
+      <h2>Built for the people consumer fintech ignores.</h2>
+      <p>Students, roommates, freelancers, and anyone managing a tight budget: people who cannot justify a monthly subscription to understand where their money goes.</p>
+    </div>
+    <div class="people">
+      {% for who, situation, gets, file in c.PERSONAS %}
+      <article>
+        <h3>{{ who }}</h3>
+        <p class="people__file">{{ file }}</p>
+        <p>{{ situation }}</p>
+        <p class="people__gets"><b>What they get</b> {{ gets }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

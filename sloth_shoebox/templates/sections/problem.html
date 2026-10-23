@@ -1,0 +1,27 @@
+<section class="block" id="problem">
+  <div class="wrap">
+    <div class="head">
+      <h2>Every mainstream tracker fails one of three ways.</h2>
+      <p>It reads data it should never touch, it makes the human do the work, or it charges a recurring fee its most vulnerable audience cannot afford. The market as of October 2026 makes the pattern unusually clear.</p>
+    </div>
+    <div class="sheet scroll">
+      <table class="grid">
+        <thead><tr><th scope="col">Tool</th><th scope="col">What goes wrong</th><th scope="col">Fails by</th></tr></thead>
+        <tbody>
+          {% for tool, model, fails, tag in c.PROBLEM_ROWS %}
+          <tr>
+            <th scope="row">{{ tool }}<small>{{ model }}</small></th>
+            <td>{{ fails }}</td>
+            <td><span class="tag">{{ tag }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="notes">
+      {% for title, body in c.PROBLEM_NOTES %}
+      <div><h3>{{ title }}</h3><p>{{ body }}</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

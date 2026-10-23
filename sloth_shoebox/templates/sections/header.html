@@ -1,0 +1,19 @@
+<header class="top">
+  <div class="wrap top__row">
+    <a class="brand" href="#top" aria-label="The Sloth Shoebox, back to top">
+      <svg class="brand__mark" aria-hidden="true"><use href="{{ url_for('static', path='mark.svg') }}#mark"/></svg>
+      <span class="brand__name">The Sloth Shoebox</span>
+      <span class="brand__ver">v{{ version }}</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      {% for id, label in c.NAV %}<a href="#{{ id }}">{{ label }}</a>{% endfor %}
+      <a class="btn btn--line" href="#demo">Try the demo</a>
+    </nav>
+    <details class="menu">
+      <summary>Menu</summary>
+      <nav aria-label="Sections">
+        {% for id, label in c.NAV %}<a href="#{{ id }}">{{ label }}</a>{% endfor %}
+      </nav>
+    </details>
+  </div>
+</header>

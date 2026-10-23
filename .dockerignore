@@ -1,0 +1,10 @@
+.git
+.venv
+data
+tests
+.github
+.claude
+__pycache__
+*.md
+!docs/*.md
+!README.md

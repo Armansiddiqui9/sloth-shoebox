@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <symbol id="mark" viewBox="0 0 32 32">
+    <g fill="none" stroke="#17285F" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M4 17h24v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" fill="#FFFBF5"/>
+      <rect x="3" y="14" width="26" height="4" rx="1" fill="#F2DDD6"/>
+      <ellipse cx="16" cy="8.5" rx="7.5" ry="6" fill="#FFFBF5"/>
+      <path d="M12.2 7.2c.9-.8 2-.6 2.4.6M19.8 7.2c-.9-.8-2-.6-2.4.6" stroke-width="1.8"/>
+      <path d="M14.6 11.6q1.4 1 2.8 0" stroke-width="1.6"/>
+    </g>
+    <ellipse cx="16" cy="10.2" rx="1.1" ry=".8" fill="#17285F"/>
+  </symbol>
+  <use href="#mark"/>
+</svg>

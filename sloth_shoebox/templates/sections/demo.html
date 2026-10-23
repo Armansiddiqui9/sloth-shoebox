@@ -1,0 +1,32 @@
+<section class="block" id="demo">
+  <div class="wrap">
+    <div class="head">
+      <h2>Drop a receipt. Watch the ledger build itself.</h2>
+      <div>
+        <p>A working run of the pipeline against a seeded SQLite ledger. Pick a sample artifact, or drop your own file, and watch it pass dedupe, parse, validate and commit. Then explore the ledger, digest, splits and offline query.</p>
+        <p class="counts" aria-live="polite">
+          <span><b id="count-ledger">–</b> transactions in the ledger</span>
+          <span><b id="count-inbox">–</b> artifacts processed</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="book">
+      <div class="tabs" role="tablist" aria-label="Demo workbench">
+        <button role="tab" id="tab-inbox" aria-controls="panel-inbox" aria-selected="true">Inbox</button>
+        <button role="tab" id="tab-ledger" aria-controls="panel-ledger" aria-selected="false" tabindex="-1">Ledger</button>
+        <button role="tab" id="tab-digest" aria-controls="panel-digest" aria-selected="false" tabindex="-1">Digest</button>
+        <button role="tab" id="tab-splits" aria-controls="panel-splits" aria-selected="false" tabindex="-1">Splits</button>
+        <button role="tab" id="tab-query" aria-controls="panel-query" aria-selected="false" tabindex="-1">Query</button>
+        <span class="tabs__note">Stored in one local SQLite file</span>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-inbox" aria-labelledby="tab-inbox"></div>
+      <div class="panel" role="tabpanel" id="panel-ledger" aria-labelledby="tab-ledger" hidden></div>
+      <div class="panel" role="tabpanel" id="panel-digest" aria-labelledby="tab-digest" hidden></div>
+      <div class="panel" role="tabpanel" id="panel-splits" aria-labelledby="tab-splits" hidden></div>
+      <div class="panel" role="tabpanel" id="panel-query" aria-labelledby="tab-query" hidden></div>
+      <noscript><p class="panel">The demo needs JavaScript. Everything it does runs against your own machine.</p></noscript>
+    </div>
+    <p class="fine">Ingest calls the same validation and commit path the app uses. Sample files use their expected parses so the demo is repeatable; other files get a stand-in parse unless you set <code>SLOTH_PARSER=ollama</code>.</p>
+  </div>
+</section>

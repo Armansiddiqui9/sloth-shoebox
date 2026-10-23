@@ -1,0 +1,41 @@
+<section class="block" id="compare">
+  <div class="wrap">
+    <div class="head">
+      <h2>The only tool that parses what you already have.</h2>
+      <p>Checked against public pricing pages and app store listings, September to October 2026. Sources are in Appendix A of the documentation.</p>
+    </div>
+    <div class="sheet scroll">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th scope="col">Capability</th>
+            {% for key, label in c.COMPARE_COLUMNS %}<th scope="col"{% if key == 'sloth' %} class="is-ours"{% endif %}>{{ label }}</th>{% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in c.COMPARE_ROWS %}
+          <tr>
+            <th scope="row">{{ row[0] }}</th>
+            {% for cell in row[1:] %}
+            <td{% if loop.first %} class="is-ours"{% endif %}>
+              <svg class="mark mark--{{ cell }}" aria-hidden="true"><use href="#m-{{ cell }}"/></svg>
+              <span class="vh">{{ c.COMPARE_MARKS[cell] }}</span>
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="legend">
+      <span><svg class="mark mark--yes" aria-hidden="true"><use href="#m-yes"/></svg> Yes</span>
+      <span><svg class="mark mark--no" aria-hidden="true"><use href="#m-no"/></svg> No</span>
+      <span><svg class="mark mark--limited" aria-hidden="true"><use href="#m-limited"/></svg> Limited</span>
+    </p>
+  </div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="m-yes" viewBox="0 0 24 24"><path d="M3.5 13.5c2 1.6 3.6 3.6 5 6.2C11.6 12 15.8 6.4 21 3.6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="m-no" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+    <symbol id="m-limited" viewBox="0 0 24 24"><path d="M4 12.5c3-3 5 3 8 0s5 3 8 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  </svg>
+</section>

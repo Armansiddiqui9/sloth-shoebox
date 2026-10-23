@@ -1,0 +1,54 @@
+<section class="hero" id="top">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <h1 class="hero__title">Your phone gallery is already a ledger.</h1>
+      <p class="lede">The Sloth Shoebox reads the UPI screenshots and receipt photos you already save, on your own machine with an open-weight vision model, and turns them into a categorised, exportable expense ledger. No cloud. No accounts. No typing.</p>
+      <p class="hero__cta">
+        <a class="btn btn--solid" href="#demo">Try the live demo</a>
+        <a class="textlink" href="#docs">Read the docs</a>
+      </p>
+      <ul class="promises">
+        {% for item in c.HERO_PROMISES %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    </div>
+
+    <figure class="stack" aria-label="Three payment artifacts become three ledger rows">
+      <div class="stack__pile" aria-hidden="true">
+        <img src="{{ url_for('static', path='samples/upi-swiggy.webp') }}" alt="" width="108" height="189">
+        <img src="{{ url_for('static', path='samples/receipt-cafe.webp') }}" alt="" width="140" height="187">
+        <img src="{{ url_for('static', path='samples/upi-blinkit.webp') }}" alt="" width="108" height="189">
+      </div>
+      <div class="memo">
+        <div class="memo__head">
+          <span class="memo__title">Cash memo</span>
+          <span class="memo__no">No. <b>000421</b></span>
+        </div>
+        <p class="memo__meta">Shop: The Sloth Shoebox &nbsp; Date: 22-10-2026</p>
+        <table class="memo__rows">
+          <thead><tr><th>Particulars</th><th>Rs.</th><th>P.</th></tr></thead>
+          <tbody>
+            {% for row in c.HERO_MEMO %}
+            <tr style="--i: {{ loop.index0 }}">
+              <td><span class="pen">{{ row.vendor }}</span><small>{{ row.detail }}</small></td>
+              <td><span class="pen">{{ row.rupees }}</span></td>
+              <td><span class="pen">{{ row.paise }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="memo__foot">
+          <span>3 artifacts in, 3 rows out, 0 quarantined</span>
+          <span class="stamp" aria-hidden="true">Parsed on<br>this machine</span>
+        </div>
+      </div>
+      <figcaption>The model is Qwen3.8-Vision or Gemma 4, served by Ollama on your machine. No API key, no round trip.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap">
+    <ol class="chain">
+      {% for step in c.HERO_CHAIN %}<li>{{ step }}</li>{% endfor %}
+      <li class="chain__end">Everything on your machine</li>
+    </ol>
+  </div>
+</section>

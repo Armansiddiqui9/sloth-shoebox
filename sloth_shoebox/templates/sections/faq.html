@@ -1,0 +1,10 @@
+<section class="block" id="faq">
+  <div class="wrap">
+    <div class="head"><h2>Questions, answered straight.</h2></div>
+    <div class="sheet faq">
+      {% for q, a in c.FAQ %}
+      <details><summary>{{ q }}</summary><p>{{ a }}</p></details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
