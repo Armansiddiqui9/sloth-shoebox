@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" style="color-scheme: light;">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sloth Shoebox — Windows App</title>
+<style>
+/* Cash-memo design system: same as website */
+:root{--desk:#f2ddd6;--desk-deep:#e8cdc4;--sheet:#fffbf5;--ink:#17285f;--ink-soft:#4b5886;--rule:rgb(23 40 95 / .20);--rule-strong:rgb(23 40 95 / .50);--pen:#1f4fe0;--red:#c41e3a;--hi:#ffe35a;--moss:#3b7a4b;--display:"Archivo","Arial Narrow",system-ui,sans-serif;--body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;--hand:"Kalam","Segoe Print","Bradley Hand",cursive;--mono:ui-monospace,"SF Mono",Menlo,monospace;--gutter:clamp(1rem,4vw,2.5rem);--header-h:3.5rem;color-scheme:light;}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h)+1rem);-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--desk);color:var(--ink);font:1.0625rem/1.6 var(--body);}
+img,svg{max-width:100%;}
+h1,h2,h3,h4,p,ul,ol,dl,dd,figure{margin:0;}
+ul,ol{padding:0;list-style:none;}
+a{color:var(--pen);text-underline-offset:.18em;}
+button,input,select,textarea{font:inherit;color:inherit;}
+button{cursor:pointer;}
+:focus-visible{outline:3px solid var(--pen);outline-offset:2px;border-radius:2px;}
+::selection{background:var(--hi);color:var(--ink);}
+.wrap{width:min(100% - 2*var(--gutter),1180px);margin-inline:auto;padding-inline:var(--gutter);}
+.block{padding-block:clamp(3.5rem,8vw,7rem);}
+.hero{padding-top:clamp(2.5rem,6vw,5rem);}
+.hero__title{font:900 clamp(3.4rem,8.4vw,6.6rem)/.92 var(--display);font-stretch:66%;letter-spacing:.004em;text-wrap:balance;color:var(--ink);}
+.lede{margin-top:1.6rem;max-width:34rem;font-size:1.2rem;line-height:1.55;color:var(--ink-soft);}
+.hero__cta{margin-top:1.8rem;display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:2.5rem;padding:.4rem 1.1rem;border:2px solid var(--ink);border-radius:2px;background:transparent;color:var(--ink);font:700 .95rem/1 var(--body);text-decoration:none;}
+.btn:hover{background:var(--ink);color:var(--sheet);}
+.btn--solid{background:var(--pen);border-color:var(--pen);color:var(--sheet);min-height:3rem;padding-inline:1.5rem;font-size:1.05rem;}
+.btn--solid:hover{background:var(--ink);border-color:var(--ink);}
+.textlink{font-weight:700;color:var(--ink);text-decoration-thickness:2px;text-decoration-color:var(--pen);}
+.top{position:sticky;top:0;z-index:50;height:var(--header-h);background:var(--desk);border-bottom:2px solid var(--ink);}
+.top__row{display:flex;align-items:center;justify-content:space-between;height:100%;gap:1rem;}
+.brand{display:inline-flex;align-items:center;gap:.55rem;color:var(--ink);text-decoration:none;}
+.brand__mark{width:2rem;height:2rem;flex:none;background:var(--ink);border-radius:2px;display:grid;place-items:center;color:var(--sheet);font:800 1.2rem/1 var(--display);font-stretch:70%;}
+.brand__name{font:800 1.35rem/1 var(--display);font-stretch:70%;letter-spacing:.01em;}
+.grid{display:grid;gap:2rem;align-items:center;}
+@media(min-width:62rem){.grid{grid-template-columns:1.1fr .9fr;}}
+.card{background:var(--sheet);border:2px solid var(--ink);padding:1.5rem;box-shadow:5px 6px 0 rgb(23 40 95 /.18);}
+.card h3{font:800 1.2rem/1.1 var(--display);font-stretch:72%;margin-bottom:.5rem;}
+.card p{font-size:.95rem;color:var(--ink-soft);line-height:1.55;}
+.onboard{background:var(--sheet);border:2px solid var(--ink);padding:clamp(2rem,4vw,3rem);box-shadow:5px 6px 0 rgb(23 40 95 /.18);}
+.onboard h2{font:900 2rem/1 var(--display);font-stretch:66%;margin-bottom:1rem;}
+.onboard .step{display:grid;gap:.25rem;margin-top:1rem;}
+.onboard .step b{font:700 1.05rem;}
+.onboard .step span{color:var(--ink-soft);font-size:.92rem;}
+.stamp{display:inline-grid;place-items:center;width:5rem;height:5rem;border:3px solid var(--red);border-radius:50%;color:var(--red);font:800 .75rem/1.1 var(--display);font-stretch:70%;letter-spacing:.06em;text-transform:uppercase;transform:rotate(-11deg);box-shadow:inset 0 0 0 2px var(--sheet),inset 0 0 0 3px var(--red);}
+.memo{background:var(--sheet);border:2px solid var(--ink);padding:1rem 1.2rem 1.1rem;box-shadow:6px 7px 0 rgb(23 40 95 /.22);position:relative;}
+.memo::before{content:"";position:absolute;inset:5px;border:1px solid var(--rule);pointer-events:none;}
+.memo__head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;}
+.memo__title{font:900 1.9rem/1 var(--display);font-stretch:62%;letter-spacing:.08em;text-transform:uppercase;}
+.memo__no{font:700 1rem var(--display);color:var(--red);font-variant-numeric:tabular-nums;}
+.memo__meta{margin-top:.4rem;font-size:.85rem;color:var(--ink-soft);border-bottom:1px solid var(--rule-strong);padding-bottom:.5rem;}
+.memo__rows{width:100%;border-collapse:collapse;margin-top:.2rem;}
+.memo__rows th{font:700 .8rem var(--body);text-align:left;padding:.35rem .4rem;color:var(--ink-soft);}
+.memo__rows td{padding:.35rem .4rem;border-top:1px solid var(--rule);vertical-align:bottom;font-size:.95rem;}
+.memo__rows td:last-child{text-align:right;border-left:1px solid var(--rule-strong);padding-right:.5rem;}
+.pen{font:400 1.3rem/1.2 var(--hand);color:var(--pen);display:inline-block;}
+.memo__foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:.5rem;font-size:.85rem;color:var(--ink-soft);}
+.table{width:100%;border-collapse:collapse;}
+.table th{background:var(--desk-deep);font-size:.85rem;color:var(--ink-soft);padding:1rem 1.2rem;border-top:0;border-bottom:2px solid var(--ink);text-align:left;}
+.table td{padding:1rem 1.2rem;border-top:1px solid var(--rule);vertical-align:top;font-size:.95rem;}
+.table tbody th{font:800 1.25rem/1.15 var(--display);font-stretch:78%;width:17rem;}
+.tag{display:inline-block;border:2px solid var(--red);color:var(--red);border-radius:2px;padding:.1rem .55rem;font-weight:700;font-size:.85rem;transform:rotate(-2deg);white-space:nowrap;}
+.foot{border-top:2px solid var(--ink);padding-top:3rem;background:var(--desk-deep);margin-top:3rem;}
+.foot__grid{display:grid;gap:2rem;}
+@media(min-width:52rem){.foot__grid{grid-template-columns:2fr 1fr 1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<header class="top" role="banner"><div class="wrap top__row"><a href="#" class="brand" aria-label="Sloth Shoebox home"><span class="brand__mark" aria-hidden="true">S</span><span class="brand__name">Sloth Shoebox</span></a><nav aria-label="Main" style="display:none;"><a href="#onboard">Onboard</a><a href="#models">Models</a><a href="#download">Download</a></nav></div></header>
+
+<main>
+<section class="hero block" aria-label="Hero"><div class="wrap"><div class="grid"><div>
+<h1 class="hero__title">Your gallery is already a ledger — now with a Windows app.</h1>
+<p class="lede">Rust + Tauri builds a native desktop experience that keeps everything on your machine. Onboarding asks about your RAM, suggests the right open-weight vision model, downloads it through Ollama, and lands you in a cash-memo ledger.</p>
+<p class="hero__cta"><a class="btn btn--solid" href="#download">Download for Windows</a><a class="textlink" href="#onboard">See onboarding</a></p>
+<ul class="promises" style="margin-top:2rem;display:flex;flex-wrap:wrap;gap:.4rem 0;font-weight:700;font-size:.95rem;"><li style="padding-right:.9rem;margin-right:.9rem;border-right:2px dotted var(--rule-strong);">No cloud sync</li><li style="padding-right:.9rem;margin-right:.9rem;border-right:2px dotted var(--rule-strong);">No SMS permission</li><li style="padding-right:.9rem;margin-right:.9rem;border-right:2px dotted var(--rule-strong);">No API key</li><li style="padding-right:.9rem;margin-right:.9rem;border-right:2px dotted var(--rule-strong);">Local inference only</li></ul>
+</div><div aria-label="Cash memo illustration"><figure class="memo" role="img" aria-label="Cash memo — 3 artifacts become 3 rows"><div class="memo__head"><span class="memo__title">Cash memo</span><span class="memo__no">No. <b>000421</b></span></div><p class="memo__meta">Shop: The Sloth Shoebox &nbsp; Date: 27-10-2026</p><table class="memo__rows"><thead><tr><th>Particulars</th><th>Rs.</th><th>P.</th></tr></thead><tbody><tr style="--i:0"><td><span class="pen">Swiggy</span><small>food, gpay, 27 Oct</small></td><td><span class="pen">285</span></td><td><span class="pen">50</span></td></tr><tr style="--i:1"><td><span class="pen">Brew &amp; Bytes</span><small>food, receipt, 22 Oct</small></td><td><span class="pen">420</span></td><td><span class="pen">00</span></td></tr><tr style="--i:2"><td><span class="pen">Blinkit</span><small>groceries, paytm, 26 Oct</small></td><td><span class="pen">648</span></td><td><span class="pen">75</span></td></tr></tbody></table><div class="memo__foot"><span>3 artifacts in, 3 rows out, 0 quarantined</span><span class="stamp" aria-hidden="true">Parsed on<br>this machine</span></div></figure></div></div></div></section>
+
+<section id="onboard" class="block" aria-label="Onboarding"><div class="wrap"><h2 style="font:900 2.4rem/1 var(--display);font-stretch:68%;letter-spacing:.004em;text-wrap:balance;">Onboarding asks, then downloads the right model.</h2><p style="max-width:42rem;font-size:1.05rem;color:var(--ink-soft);line-height:1.55;margin-top:.8rem;">Before the ledger opens, the app detects your RAM, recommends a vision model, and pulls it through Ollama. You pick a category or let the model suggest. Nothing leaves the machine.</p>
+<div style="display:grid;gap:2rem;margin-top:2.5rem;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));"><div class="card"><h3>1. How much RAM?</h3><p>We read your system and place you in one of four bands: 8 GB, 12–16 GB, 16–19 GB+, or 20 GB+. This decides the model size.</p></div><div class="card"><h3>2. Pick a model</h3><p>Low — Moondream / MiniCPM-V. Medium — Gemma 4 12B. High — Qwen3.8-Vision 27B (4-bit). Very high — full precision Qwen3.8.</p></div><div class="card"><h3>3. Download via Ollama</h3><p>The app runs <code>ollama pull</code> for the recommended weight. After that, parsing is fully offline.</p></div><div class="card"><h3>4. Start the ledger</h3><p>Drop screenshots or open a folder. The pipeline dedupes, parses with your local VLM, validates against schema, and commits.</p></div></div>
+</div></section>
+
+<section id="models" class="block" aria-label="Model recommendations" style="background:var(--desk-deep);"><div class="wrap"><h2 style="font:900 2.4rem/1 var(--display);font-stretch:68%;">Model selection by your RAM.</h2><p style="max-width:42rem;color:var(--ink-soft);margin-top:.6rem;">The Windows app aligns with the web app’s degradation ladder. Smaller machines get slower but functional models; larger machines unlock the primary vision model.</p>
+<div style="overflow-x:auto;margin-top:1.5rem;border:2px solid var(--ink);"><table class="table"><thead><tr><th>RAM</th><th>Recommended</th><th>Notes</th></tr></thead><tbody><tr><td><b>8–11 GB</b></td><td>Moondream / MiniCPM-V</td><td>Low-end; fully functional</td></tr><tr><td><b>12–15 GB</b></td><td>Gemma 4 12B</td><td>Best balance for laptops</td></tr><tr><td><b>16–19 GB</b></td><td>Qwen3.8-Vision 27B (4-bit)</td><td>Strongest parsing; Apache family</td></tr><tr><td><b>20+ GB</b></td><td>Qwen3.8-Vision 27B (full)</td><td>Highest accuracy; native MLX on Apple Silicon</td></tr></tbody></table></div>
+</div></section>
+
+<section id="download" class="block" aria-label="Download"><div class="wrap"><div class="onboard"><h2>Download for Windows</h2><p style="max-width:48rem;color:var(--ink-soft);line-height:1.55;">This is a test build: Rust + Tauri, no real binary until you compile with <code>cargo tauri build</code>. The folder <code>app-windows/</code> contains the technical README and setup. To run locally, install Rust and run <code>npm create tauri-app</code or copy the source into a Tauri project.</p>
+<div style="margin-top:1.2rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;"><a class="btn btn--solid" href="#" onclick="alert('This is a test build. Compile with cargo tauri build after installing Rust.')" aria-label="Download Windows installer">Click here to download — Windows .msi</a><span style="font-size:.9rem;color:var(--ink-soft);">Test build — requires Rust + Tauri build</span></div>
+<div style="margin-top:1.5rem;border-top:1px dashed var(--rule);padding-top:1rem;">
+<p style="font-weight:700;margin-bottom:.4rem;">What is included</p>
+<p style="color:var(--ink-soft);font-size:.95rem;line-height:1.55;">Rust source structure, Tauri config, React frontend with cash-memo CSS, onboarding flow with RAM detection, model recommendation table, Ollama integration, SQLite ledger copy, SVG assets matching the web theme.</p>
+</div>
+</div>
+</div></section>
+
+<section class="block" aria-label="Theme" style="background:var(--ink);color:var(--sheet);"><div class="wrap"><h2 style="font:900 2rem/1 var(--display);font-stretch:66%;">Theme stays the same.</h2><p style="max-width:42rem;color:#dfe4f7;line-height:1.55;">Pink duplicate paper background, single blue print ink for structure, red serial stamps for errors and numbers, Kalam handwriting only where a person writes (notes, answers, onboarding choices). The Windows app preserves every token of that design.</p>
+</div></section>
+</main>
+
+<footer class="foot" role="contentinfo"><div class="wrap"><div class="foot__grid"><div><a href="#" class="brand brand--foot" aria-label="Home"><span class="brand__mark" aria-hidden="true">S</span><span class="brand__name">Sloth Shoebox</span></a><p style="max-width:30rem;color:var(--ink-soft);font-size:.92rem;line-height:1.55;margin-top:.5rem;">The main README is at <code>README.md</code>. The Windows app technical docs are in <code>app-windows/README.md</code>. Both describe the same app: a local-first expense ledger with open-weight vision parsing.</p></div><nav aria-label="Links"><h4>App</h4><a href="#onboard">Onboarding</a><a href="#models">Models</a><a href="#download">Download</a></nav><nav aria-label="Docs"><h4>Docs</h4><a href="#">Web README</a><a href="#">Technical README</a><a href="#">Privacy</a></nav><nav aria-label="Project"><h4>Project</h4><a href="#">Roadmap</a><a href="#">Compare</a><a href="#">FAQ</a></nav></div><div style="margin-top:2.5rem;padding-top:1.2rem;border-top:2px dotted rgb(23 40 95 / .25);font-size:.9rem;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem 2rem;"><span>Local-only · No account · MIT</span><span>Built to match the cash-memo theme.</span></div></div></footer>
+
+</body>
+</html>
