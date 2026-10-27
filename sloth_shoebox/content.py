@@ -9,10 +9,26 @@ NAV = (
     ("problem", "Problem"),
     ("pipeline", "Pipeline"),
     ("demo", "Demo"),
+    ("download", "Download"),
     ("privacy", "Privacy"),
     ("compare", "Compare"),
     ("docs", "Docs"),
     ("faq", "FAQ"),
+)
+
+
+# Download section copy for the Windows app card on the home page.
+DOWNLOAD_LEDE = (
+    "A native Windows app built with Rust and Tauri. It keeps everything on your machine, "
+    "detects your RAM, recommends and downloads the right open-weight vision model via Ollama, "
+    "and runs the same cash-memo ledger locally."
+)
+
+DOWNLOAD_BUTTON = ("Download for Windows (.msi)", "#")
+
+DOWNLOAD_NOTES = (
+    "This is a test build until you compile with <code>cargo tauri build</code>. "
+    "The technical README lives in app-windows/README.md."
 )
 
 HERO_PROMISES = (
@@ -24,7 +40,7 @@ HERO_PROMISES = (
 )
 
 HERO_CHAIN = (
-    "Drop a folder of screenshots",
+    "Drop a folder or screenshot",
     "Dedupe",
     "Parse with a local vision model",
     "Validate against a schema",
